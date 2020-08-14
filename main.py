@@ -1,25 +1,23 @@
-from flask import Flask, jsonify
-from threading import Thread
-from flask_restful import Resource, Api
+from flask import Flask, jsonify, render_template
 from gevent.pywsgi import WSGIServer
-
+from threading import Thread
 import random_exc as exc
 
-app = Flask('')
-api = Api(app)
+app = Flask(__name__,template_folder='template')
 
-class Home(Resource):
-    def get(self):
-        return "<h1>Random Book Excerpts</h1><p>A prototype API for Random Excerpts.</p>"
+@app.route('/')
+def Home():
+    return '''<h1>Random Book Excerpts</h1><p>A prototype API for Random Excerpts.</p>'''
 
-class Info(Resource):
-    def get(self):
-        random = exc.runner()
-        return jsonify(random)
+@app.route('/base')
+def Info():
+  random = exc.runner()
+  return jsonify(random)
 
-#creating api endpoint
-api.add_resource(Home, '/')
-api.add_resource(Info, '/api/restful')
+@app.route('/pretty')
+def New_Info():
+  random = exc.runner()
+  return render_template('test3.html',book_title=random['title'],book_author=random['author'],book_text=random['text'])
 
 def run():
     http_server = WSGIServer(('', 7210), app)
