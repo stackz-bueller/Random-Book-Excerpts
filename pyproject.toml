@@ -14,4 +14,6 @@ flask = "^1.1"
 flask-restful = "^0.3.7"
 lxml = "^4.4"
 python = "^3.8"
+waitress = "^1.4.4"
+gevent = "^20.6.2"
 [tool.poetry.dev-dependencies]
