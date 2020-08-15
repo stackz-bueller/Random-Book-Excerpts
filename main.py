@@ -19,6 +19,11 @@ def New_Info():
   random = exc.runner()
   return render_template('test3.html',book_title=random['title'],book_author=random['author'],book_text=random['text'])
 
+@app.route('/new_pretty')
+def Hype_Info():
+  random = exc.runner()
+  return render_template('test4.html',book_title=random['title'],book_author=random['author'],book_text=random['text'])
+
 def run():
     http_server = WSGIServer(('', 7210), app)
     http_server.serve_forever()

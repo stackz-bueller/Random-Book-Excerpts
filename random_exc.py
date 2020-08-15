@@ -12,18 +12,12 @@ def get_random_excerpt(url):
     words = work.split('.')
 
     ws = 0
-    while (ws < 175):
-        rando = random.randint(int(len(words) * 0.35), int(len(words) * 0.65))
-        mid = rando + 1
-        mid_ = rando + 2
-        end = rando + 3
-        excerpt = words[rando] + '. ' + words[mid] + '. ' + words[
-            mid_] + '. ' + words[end]
-        ws = sum(c.isalpha() for c in excerpt)
-
-    return excerpt.replace('\r\n',
-                           ' ').replace('_', ' ').replace('\'', "'").replace(
-                               "\ ", '').strip()
+    while (ws < 400):
+        rando = random.randint(int(len(words) * 0.42), int(len(words) * 0.58))
+        excerpt = [words[rando+i] for i in range(0, 14)]
+        string_ = '. '.join(excerpt)
+        ws = sum(c.isalpha() for c in string_)
+    return string_ + '. '
 
 
 def get_excerpt():
