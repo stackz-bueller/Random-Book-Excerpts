@@ -4,16 +4,14 @@ requires = ["poetry>=0.12"]
 
 [tool]
 [tool.poetry]
-authors = ["Your Name <you@example.com>"]
-description = ""
+authors = ["Ian Terrince Davis <ian.t.davis@outlook.com>"]
+description = "Simple Web App that returns random book excerpts; html webscraping, Flask Development with Dynamic HTML, WGSI Production Server, Threading"
 name = "engine"
 version = "0.1.0"
 [tool.poetry.dependencies]
 bs4 = "^0.0.1"
 flask = "^1.1"
-flask-restful = "^0.3.7"
 lxml = "^4.4"
 python = "^3.8"
-waitress = "^1.4.4"
 gevent = "^20.6.2"
 [tool.poetry.dev-dependencies]
