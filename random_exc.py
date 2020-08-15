@@ -49,11 +49,12 @@ def get_excerpt():
     txt_link = link_tags[-2].get('about')
     excerpt = get_random_excerpt(txt_link)
 
-    data = [book['title'], book['author'], excerpt]
+    data = [book['title'], book['author'], excerpt, book['link']]
     return data
 
 
 def runner():
     data = get_excerpt()
-    dict_ = {'title': data[0], 'author': data[1], 'text': data[2]}
+    keys = ['title','author','text','link']
+    dict_ = dict(zip(keys,data))
     return dict_

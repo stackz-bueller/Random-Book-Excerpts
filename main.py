@@ -3,12 +3,17 @@ from gevent.pywsgi import WSGIServer
 from threading import Thread
 import random_exc as exc
 
+
+'''
+App Creation & Routing
+'''
+# App Init
 app = Flask(__name__,template_folder='template')
 
 # Routing to Home Page
 @app.route('/')
 def Home():
-    return '''<h1>Random Book Excerpts</h1><p>A prototype API for Random Excerpts.</p>'''
+    return render_template('index.html')
 
 # Routing to json of Info
 @app.route('/base')
@@ -16,18 +21,16 @@ def Info():
   random = exc.runner()
   return jsonify(random)
 
-# Routing to Nice HTML Layout, Test3.html
+# Routing to Nice HTML Layout, excerpt.html
 @app.route('/pretty')
 def New_Info():
   random = exc.runner()
-  return render_template('test3.html',book_title=random['title'],book_author=random['author'],book_text=random['text'])
+  return render_template('excerpt.html',book_title=random['title'],book_author=random['author'],book_text=random['text'],book_link =random['link'])
 
-# Routing to Nice HTML Layout, Test4.html
-@app.route('/new_pretty')
-def Hype_Info():
-  random = exc.runner()
-  return render_template('test4.html',book_title=random['title'],book_author=random['author'],book_text=random['text'])
 
+'''
+Error Handling
+'''
 # Forbidden Access Error Handling
 @app.errorhandler(403)
 def forbidden_access(e):
@@ -43,6 +46,10 @@ def not_found(e):
 def server_error(e):
   return Home()
 
+
+'''
+App Service
+'''
 # Runner for Server
 def run():
     http_server = WSGIServer(('', 7210), app)
