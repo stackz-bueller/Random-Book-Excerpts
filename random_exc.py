@@ -13,7 +13,7 @@ def get_random_excerpt(url):
 
     ws = 0
     while (ws < 400):
-        rando = random.randint(int(len(words) * 0.42), int(len(words) * 0.58))
+        rando = random.randint(int(len(words) * 0.5), int(len(words) * 0.65))
         excerpt = [words[rando+i] for i in range(0, 14)]
         string_ = '. '.join(excerpt)
         ws = sum(c.isalpha() for c in string_)
