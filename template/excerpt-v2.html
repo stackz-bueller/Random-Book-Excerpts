@@ -33,17 +33,17 @@
 			margin: auto;
 			line-height: 2.0;
 			white-space: pre;
-			word-wrap: normal;
+			word-wrap: break-word;
 		}
 	</style>
 	<title>Random Excerpts</title>
 </head>
 
 <body>
-  <h1 class='title_style'>
-    {{book_title}}
-    </h1>
-  <br>
+	<h1 class='title_style'>
+		{{book_title}}
+	</h1>
+	<br>
   <h2 class='author_style'>
     {{book_author}}
   </h2>
@@ -62,5 +62,10 @@
       </a>
     </p>
   </footer>
+  <script>
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    };
+  </script>
 </body>
 </html>
