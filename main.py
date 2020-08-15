@@ -17,15 +17,21 @@ def Home():
 
 # Routing to json of Info
 @app.route('/base')
-def Info():
+def Base_Info():
   random = exc.runner()
   return jsonify(random)
 
 # Routing to Nice HTML Layout, excerpt.html
-@app.route('/pretty')
-def New_Info():
+@app.route('/pretty-dep')
+def Old_Pretty():
   random = exc.runner()
   return render_template('excerpt.html',book_title=random['title'],book_author=random['author'],book_text=random['text'],book_link =random['link'])
+
+# Routing to Nice HTML Layout, excerpt-v2.html
+@app.route('/pretty')
+def New_Pretty():
+  random = exc.runner()
+  return render_template('excerpt-v2.html',book_title=random['title'],book_author=random['author'],book_text=random['text'],book_link =random['link'])
 
 
 '''
