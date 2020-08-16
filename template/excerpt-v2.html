@@ -28,10 +28,12 @@
 		.text_style {
 			font-family: courier;
 			font-size: 170%;
-			max-width: 75%;
-			margin: 0 auto;
+			text-align: center;
+			max-width: 80%;
+			margin: auto;
 			line-height: 2.0;
-			
+			white-space: pre;
+			word-wrap: break-word;
 		}
 	</style>
 	<title>Random Excerpts</title>
@@ -46,17 +48,11 @@
     {{book_author}}
   </h2>
 
-  <table style="table-layout:fixed; width: 70%; word-wrap: break-word;">
-    <tr>
-      <td style="text-align: center; margin: 0 auto; white-space: pre;">
-        <div>
-          <p class='text_style'>
-            {{book_text}}
-          </p>
-        </div>
-      </td>
-    </tr>
-  </table>
+  <div class='text_style'>
+    <p>
+      {{book_text}}
+    </p>
+  </div>
   <br>
 
   <footer>
