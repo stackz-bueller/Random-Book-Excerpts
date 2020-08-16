@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+		.hyper_style {
+			color: green;
+			font-size: 200%;
+		}
+
+		.title_style {
+			color: blue;
+			font-family: 'alpha geometrique', fantasy;
+			text-align: center;
+			max-width: 80%;
+			margin: 0 auto;
+			font-size: calc((45vw - 3.5rem) / 7);
+		}
+
+		.author_style {
+			font-family: monospace;
+			text-align: center;
+			max-width: 70%;
+			margin: 0 auto;
+			font-size: calc((40vw - 4.5rem) / 7);
+		}
+
+		.text_style {
+			font-family: courier;
+			font-size: 170%;
+			text-align: center;
+			max-width: 80%;
+			margin: auto;
+			line-height: 2.0;
+			white-space: pre;
+			word-wrap: break-word;
+		}
+	</style>
+	<title>Random Excerpts</title>
+  
+</head>
+
+<body>
+	<h1 class='title_style'>
+		{{book_title}}
+	</h1>
+	<br>
+  <h2 class='author_style'>
+    {{book_author}}
+  </h2>
+
+  <div class='text_style'>
+    <p>
+      {{book_text}}
+    </p>
+  </div>
+  <br>
+
+  <footer>
+    <p style='text-align:center'>
+      <a class='hyper_style' href={{book_link}}>
+        Source: Project Gutenberg
+      </a>
+    </p>
+  </footer>
+  <script>
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    };
+  </script>
+</body>
+</html>
