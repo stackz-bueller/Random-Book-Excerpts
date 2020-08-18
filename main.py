@@ -24,7 +24,7 @@ App Creation & Routing
 # App Init
 app = Flask(__name__, template_folder='template')
 app.secret_key = os.getenv('APP_SECRET_KEY')
-apiKey = os.getenv('IFFFT_KEY')
+apiKey = os.getenv('IFTTT_KEY')
 
 
 # Routing to Home Page
