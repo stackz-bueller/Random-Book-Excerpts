@@ -10,8 +10,7 @@ class iffft():
   # Visitor Notification Method (Static Method, no returned value)
   def noft_visitor(self, userIP, city, zipcode, country, contin, browser, userOS):
       report = {'value1' : 'Repl, engine-3',
-                'value2' :  'IP Address: {}'.format(userIP) if city==" " else 'IP Address: {}, {}, {}, {}'.format(userIP, city, zipcode, country, contin),
+                'value2' :  'IP Address: {}'.format(userIP) if city==" " else 'IP Address: {}, {}, {}, {}, {}'.format(userIP, city, zipcode, country, contin),
                 'value3' : 'Browser: {}, OS: {}'.format(browser,userOS)}
 
       req.post('https://maker.ifttt.com/trigger/'+trigger+'/with/key/'+self.KEY,data=report)
-      print(report)

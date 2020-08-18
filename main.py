@@ -70,7 +70,7 @@ def getAnalyticsOnVisitor():
 
     try:
         userInfo = httpagentparser.detect(request.headers.get('User-Agent'))
-        print('\n\n', userInfo)
+
         userOS = userInfo['platform']['name']
         userBrowser = userInfo['browser']['name']
 
@@ -89,7 +89,6 @@ def getAnalyticsOnVisitor():
         resp = urllib.request.urlopen(ipLoc)
         result = resp.read()
         result = json.loads(result.decode("utf-8"))
-        print('\n', result)
 
         userCountry = result["country"]
         userContinent = result["continent"]
@@ -105,7 +104,7 @@ def getAnalyticsOnVisitor():
         noft = webhook.iffft(apiKey)
         noft.noft_visitor(userIP, userCity, userZip, userCountry,
                           userContinent, userBrowser, userOS)
-        print('\nIP Info Sent: {}'.format(userIP, userCity))
+        print('\nIFTTT Webhook (Visitor)\n\tIP Addr: {}\n\tBrowser: {}\n\tOS: {}'.format(userIP, userBrowser, userOS))
 
 
 '''
