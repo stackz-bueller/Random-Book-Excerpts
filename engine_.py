@@ -6,7 +6,7 @@ base = 'https://www.gutenberg.org'
 url = 'https://www.gutenberg.org/ebooks/search/?sort_order=random'
 test = r.get(url).content
 
-
+# Fuction that grabs excerpt from book txt file, url positional varible need
 def get_random_excerpt(url):
     work = r.get(url).text
     words = work.split('.')
@@ -19,8 +19,8 @@ def get_random_excerpt(url):
         ws = sum(c.isalpha() for c in string_)
     return string_ + '. '
 
-
-def get_excerpt():
+# Function that pulls random book info and link through html parse
+def get_random_book():
     s = BeautifulSoup(test, 'lxml')
     book_tags = s.findAll('li', 'booklink')
 
@@ -50,9 +50,9 @@ def get_excerpt():
     data = [book['title'], book['author'], excerpt, book['link']]
     return data
 
-
+# Function that zips random book data and hard-coded keys
 def runner():
-    data = get_excerpt()
+    data = get_random_book()
     keys = ['title', 'author', 'text', 'link']
     dict_ = dict(zip(keys, data))
     return dict_

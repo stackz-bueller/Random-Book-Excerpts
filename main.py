@@ -1,21 +1,30 @@
-from flask import Flask, request, jsonify, render_template, session
+from flask import Flask, request, jsonify, render_template
 import httpagentparser
 import urllib.request
-import datetime
-import hashlib
 import json
 from gevent.pywsgi import WSGIServer
 from threading import Thread
+import os
+
 import engine_ as exc
 import webhook
 
-# Initialize Session Inf
-userOS, userBrowser, userIP, userContinent, userCity, userCountry, SessionID = None
+# Initialize Session Info
+userOS = None
+userBrowser = None
+userIP = None
+userContinent = None
+userCity = None
+userCountry = None
+userZip = None
 '''
 App Creation & Routing
 '''
+
 # App Init
 app = Flask(__name__, template_folder='template')
+app.secret_key = os.getenv('APP_SECRET_KEY')
+apiKey = os.getenv('IFFFT_KEY')
 
 
 # Routing to Home Page
@@ -57,17 +66,30 @@ def New_Pretty():
 
 @app.before_request
 def getAnalyticsOnVisitor():
-    global userOS, userBrowser, userIP, userContinent, userCity, userCountry, SessionID
-    userInfo = httpagentparser.detect(request.headers.get('User-Agent'))
-    userOS = userInfo['platform']['name']
-    userBrowser = userInfo['browser']['name']
-    userIP = "172.18.0.1" if request.remote_addr == '127.0.0.1' else request.remote_addr
-    api = "https://www.iplocate.io/api/lookup/" + userIP
+    global userOS, userBrowser, userIP, userContinent, userCity, userCountry
 
     try:
-        resp = urllib.request.urlopen(api)
+        userInfo = httpagentparser.detect(request.headers.get('User-Agent'))
+        print('\n\n', userInfo)
+        userOS = userInfo['platform']['name']
+        userBrowser = userInfo['browser']['name']
+
+    except KeyError:
+        pass
+
+    finally:
+        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+            userIP = request.environ['REMOTE_ADDR']
+        else:
+            userIP = request.environ['HTTP_X_FORWARDED_FOR']
+
+    ipLoc = "https://www.iplocate.io/api/lookup/" + userIP
+
+    try:
+        resp = urllib.request.urlopen(ipLoc)
         result = resp.read()
         result = json.loads(result.decode("utf-8"))
+        print('\n', result)
 
         userCountry = result["country"]
         userContinent = result["continent"]
@@ -80,20 +102,10 @@ def getAnalyticsOnVisitor():
         userCity = " "
 
     finally:
-        get_session()
-        webhook.noft_visitor(sessionID, userIP, userCity, userCountry,
-                             userContinent, userBrowser, userOS)
-
-
-def get_session():
-    global sessionID
-    time = datetime.now().replace(microsecond=0)
-    if 'user' not in session:
-        lines = (str(time) + userIP).encode('utf-8')
-        session['user'] = hashlib.md5(lines).hexdigest()
-        sessionID = session['user']
-    else:
-        sessionID = session['user']
+        noft = webhook.iffft(apiKey)
+        noft.noft_visitor(userIP, userCity, userZip, userCountry,
+                          userContinent, userBrowser, userOS)
+        print('\nIP Info Sent: {}'.format(userIP, userCity))
 
 
 '''
