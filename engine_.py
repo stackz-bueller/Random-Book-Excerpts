@@ -27,9 +27,7 @@ def get_excerpt():
     book_list = []
     for book in book_tags:
         try:
-            title = book.find(class_='title').get_text()
-            if title[-1:] == '\n':
-                title = title[:-1]
+            title = book.find(class_='title').get_text().rstrip('\\n')
             author = book.find(class_='subtitle').get_text()
             link = book.find('a').get('href')
             book_list.append({
