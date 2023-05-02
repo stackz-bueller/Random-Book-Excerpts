@@ -11,7 +11,7 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 bs4 = "^0.0.1"
 flask = "^2.3"
-lxml = "^4.4"
+lxml = "^4.9"
 python = "^3.8"
 gevent = "^20.6.2"
 requests = "^2.24.0"
